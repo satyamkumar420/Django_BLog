@@ -72,7 +72,7 @@ WSGI_APPLICATION = "myblog.wsgi.application"
 #     }
 # }
 
-ALLOWED_HOSTS = ["django-blog-uai4.onrender.com"]
+ALLOWED_HOSTS = ["django-blog-uai4.onrender.com", "localhost", "127.0.0.1"]
 
 
 DATABASES = {

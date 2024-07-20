@@ -80,7 +80,7 @@ DATABASES = {
 #             "host": "mongodb+srv://jango:IErSaBfpZ22xHCMj@blog.ohkptxm.mongodb.net/blog",
 #             "port": 27017,
 #             "username": "jango",
-#             "password": "IErSaBfpZ22xHCMj",
+#             "password": "******",
 #         },
 #     }
 # }

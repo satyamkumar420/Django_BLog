@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 200px;
+        max-height: 500px;
+      }
+      .form-group input[type="file"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: #ffffff;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .form-group input[type="file"]::-webkit-file-upload-button {
+        border: none;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .form-group input[type="file"]::-webkit-file-upload-button:hover {
+        background-color: #0056b3;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 5px;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        margin: 10px 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .btn-primary {
+        background-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Edit Profile</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% comment %} only show username and email {% endcomment %}
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        {% csrf_token %}
+        <div class="form-group">{{ form.bio.label_tag }} {{ form.bio }}</div>
+        <div class="form-group">
+          {{ form.avatar.label_tag }}
+          <input type="file" name="{{ form.avatar.name }}" id="id_avatar" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

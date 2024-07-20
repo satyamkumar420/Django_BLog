@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ post.title }}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .post {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .post-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #343a40;
+      }
+      .post-content {
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+      .post-meta {
+        font-size: 14px;
+        color: #6c757d;
+        margin-bottom: 15px;
+      }
+      .post-author {
+        font-size: 14px;
+        color: #495057;
+        margin-top: 10px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-primary {
+        background-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+      .btn-like {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-like:hover {
+        background-color: #0056b3;
+      }
+      .fa-thumbs-up,
+      .fa-thumbs-down {
+        margin-right: 5px;
+      }
+      .comment {
+        border-top: 1px solid #dee2e6;
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+      .comment-author {
+        font-weight: bold;
+        color: #343a40;
+      }
+      .comment-content {
+        margin-top: 5px;
+        color: #495057;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .form-group button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+      .form-group button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-content">{{ post.content_html|safe }}</div>
+        <p class="post-meta">
+          Author: {{ post.author.username }} | Views: {{ post.view_count }} |
+          Likes: {{ post.total_likes }}
+        </p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'like_post' pk=post.pk %}" class="btn-like">
+          {% if user in post.likes.all %}
+          <i class="fas fa-thumbs-down"></i> Unlike {% else %}
+          <i class="fas fa-thumbs-up"></i> Like {% endif %}
+        </a>
+        {% endif %}
+        <div class="post-author">
+          By {{ post.author }} on {{ post.created_at }}
+        </div>
+        <br />
+        {% if post.author == user %}
+        <a href="{% url 'edit_post' post.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'delete_post' post.pk %}" class="btn btn-danger"
+          >Delete</a
+        >
+        {% endif %}
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+      </div>
+      <h3>Comments</h3>
+      {% for comment in comments %}
+      <div class="comment">
+        <div class="comment-author">{{ comment.author }}</div>
+        <div class="comment-content">{{ comment.content }}</div>
+      </div>
+      {% endfor %}
+      <h3>Add a Comment</h3>
+      {% if user.is_authenticated %}
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form.content.label_tag }} {{ form.content }}
+        </div>
+        <div class="form-group">
+          <button type="submit">Add Comment</button>
+        </div>
+      </form>
+      {% else %}
+      <p>You must <a href="{% url 'login' %}">login</a> to add a comment.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

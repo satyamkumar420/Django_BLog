@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ profile.user.username }}'s Profile</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #343a40;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+      }
+      .avatar {
+        display: block;
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        border: 3px solid #007bff;
+      }
+      p {
+        font-size: 16px;
+        color: #495057;
+        margin-bottom: 15px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 5px 10px;
+        transition: background-color 0.3s ease;
+      }
+      .btn-primary {
+        background-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .btn-danger {
+        background-color: #dc3545;
+      }
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+      }
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>{{ profile.user.username }}'s Profile</h2>
+      {% if profile.avatar %}
+      <img src="{{ profile.avatar.url }}" alt="Avatar" class="avatar" />
+      {% else %}
+      <p>No avatar available.</p>
+      {% endif %}
+      <p></p>
+      <p>Username: {{ profile.user.username }}</p>
+      <p>Email: {{ profile.user.email }}</p>
+      <p>Bio: {{ profile.bio }}</p>
+      {% if profile.user == user %}
+      <a href="{% url 'edit_profile' %}" class="btn btn-primary"
+        >Edit Profile</a
+      >
+      <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+      <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+      {% endif %}
+    </div>
+  </body>
+</html>

@@ -61,12 +61,16 @@
         color: #495057;
         margin-top: 10px;
       }
-
+      .post-avatar {
+        display: flex;
+        align-items: center;
+      }
       .post-avatar > img {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         margin-right: 10px;
+        margin-left: 10px;
       }
       .btn {
         display: inline-block;
@@ -161,7 +165,8 @@
         <div class="post-content">{{ post.content_html|safe }}</div>
         <div class="post-meta">
           <div class="post-avatar">
-            Author: {% if post.author.profile.avatar %}
+            <span>Author:</span>
+            {% if post.author.profile.avatar %}
             <img src="{{ post.author.profile.avatar.url }}" alt="avatar" />
             {% else %}
             <img

@@ -72,6 +72,8 @@ WSGI_APPLICATION = "myblog.wsgi.application"
 #     }
 # }
 
+ALLOWED_HOSTS = ["django-blog-uai4.onrender.com"]
+
 
 DATABASES = {
     "default": dj_database_url.config(default=os.getenv("SUPABASE_DATABASE_URL"))

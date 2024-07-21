@@ -72,9 +72,8 @@ WSGI_APPLICATION = "myblog.wsgi.application"
 #     }
 # }
 
-# ALLOWED_HOSTS = ["django-blog-uai4.onrender.com", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["django-blog-uai4.onrender.com", "0.0.0.0", "127.0.0.1"]
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1"]
 
 DATABASES = {
     "default": dj_database_url.config(default=os.getenv("SUPABASE_DATABASE_URL"))

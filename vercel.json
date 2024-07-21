@@ -3,9 +3,7 @@
   "builds": [
     {
       "src": "manage.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb" },
-      "runtime": "python3.12.3"
+      "use": "@vercel/python"
     },
     { "src": "myblog/wsgi.py", "use": "@vercel/python" }
   ],
